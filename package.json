@@ -1,0 +1,56 @@
+{
+  "name": "typedash",
+  "version": "1.2.0",
+  "description": "Real-time multiplayer typing race with practice mode, daily challenge, ghost replays, share cards, seasons, teams, seven languages and worldwide rankings (Node.js + WebSockets, zero front-end build).",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "simulate": "node test/simulate.js",
+    "test": "npm run test:race && npm run test:rank && npm run test:solo && npm run test:daily && npm run test:ghost && npm run test:share && npm run test:pages && npm run test:seasons && npm run test:teams && npm run test:lang && npm run test:push && npm run test:browser && npm run test:mobile && npm run test:embed",
+    "test:race": "DATA_FILE=/tmp/typedash-test/race.json LOBBY_WAIT_MS=1500 COUNTDOWN_MS=1200 RESULTS_MS=1500 AFTER_FIRST_FINISH_MS=4000 node test/run-test.js",
+    "test:rank": "DATA_FILE=/tmp/typedash-test/rank.json node test/run-rank-test.js",
+    "test:solo": "DATA_FILE=/tmp/typedash-test/solo.json node test/run-solo-test.js",
+    "test:browser": "DATA_FILE=/tmp/typedash-test/browser.json node test/run-browser-test.js",
+    "test:daily": "DATA_FILE=/tmp/typedash-test/daily.json node test/run-daily-test.js",
+    "test:ghost": "DATA_FILE=/tmp/typedash-test/ghost.json node test/run-ghost-test.js",
+    "test:share": "NODE_NO_WARNINGS=1 DATA_FILE=/tmp/typedash-test/share.json node test/run-share-test.js",
+    "test:pages": "NODE_NO_WARNINGS=1 DATA_FILE=/tmp/typedash-test/pages.json node test/run-pages-test.js",
+    "test:seasons": "DATA_FILE=/tmp/typedash-test/seasons.json node test/run-seasons-test.js",
+    "test:mobile": "DATA_FILE=/tmp/typedash-test/mobile.json node test/run-mobile-test.js",
+    "icons": "node scripts/make-icons.js",
+    "test:embed": "DATA_FILE=/tmp/typedash-test/embed.json node test/run-embed-test.js",
+    "test:teams": "DATA_FILE=/tmp/typedash-test/teams.json node test/run-teams-test.js",
+    "test:lang": "DATA_FILE=/tmp/typedash-test/lang.json node test/run-lang-test.js",
+    "test:push": "DATA_FILE=/tmp/typedash-test/push.json node test/run-push-test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "typing",
+    "race",
+    "multiplayer",
+    "websocket",
+    "realtime",
+    "game",
+    "leaderboard",
+    "ranking",
+    "daily-challenge",
+    "ghost",
+    "pwa",
+    "seo",
+    "practice"
+  ],
+  "author": "Muhammad Umair Naseer",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^23.11.1"
+  },
+  "optionalDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}

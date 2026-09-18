@@ -1,0 +1,20 @@
+'use strict';
+
+module.exports = { lang: 'fr', category: 'prose', passages: [
+  { id: 'fr-phare', title: 'Le gardien du phare', text: "Le gardien du phare monte l'escalier en colimaçon chaque soir en comptant les marches par habitude. Là-haut, la mer a déjà pris la couleur de l'ardoise et les premiers bateaux clignotent." },
+  { id: 'fr-taper', title: 'Une affaire de regard', text: "Taper vite est moins une affaire de doigts que de regard. Quand on cesse de fixer le clavier pour lire quelques mots en avance, les mains trouvent le chemin toutes seules." },
+  { id: 'fr-boulangerie', title: 'La boulangerie du coin', text: "La boulangerie du coin ouvre avant l'aube. L'odeur du pain chaud traverse la rue et réveille le quartier peu à peu, pendant que les premiers vélos passent sans bruit." },
+  { id: 'fr-bon-code', title: 'Un bon code', text: "Un bon code se lit comme une lettre soignée : il dit ce qu'il veut dire, ne fait pas perdre de temps, et un an plus tard on le comprend encore sans l'auteur dans la pièce." },
+  { id: 'fr-pluie', title: 'La pluie en ville', text: "La pluie est arrivée en ville juste après midi. Elle a glissé le long des tours de verre, s'est rassemblée aux coins des carrefours, et pendant vingt minutes toute la rue a ralenti." },
+  { id: 'fr-graines', title: 'Les graines de grand-mère', text: "Ma grand-mère gardait ses graines dans des bocaux en verre aux étiquettes écrites à la main. Elle disait qu'un jardin commence bien avant le printemps, dans un tiroir sombre et rangé." },
+  { id: 'fr-train', title: 'Le train en retard', text: "Le train est parti avec dix minutes de retard et personne ne s'est plaint. Dehors il pleuvait sur les champs, et dans le wagon les gens lisaient, dormaient ou regardaient les gouttes courir." },
+  { id: 'fr-conversation', title: 'Une partie de balle', text: "Une bonne conversation ressemble à une partie de balle : le but n'est pas de gagner mais de garder la balle en l'air. On lance quelque chose que l'autre peut attraper, et personne ne compte les points." },
+  { id: 'fr-dernier-bus', title: 'Le dernier bus', text: "Dans le dernier bus, la moitié de la ville rentre à moitié endormie. Quelqu'un pose la tête contre la vitre, deux étudiants se disputent à propos d'un film, et le chauffeur connaît chaque nid-de-poule par coeur." },
+  { id: 'fr-atelier', title: 'L\'atelier du coin', text: "Dans l'atelier du coin, on répare des vélos depuis quarante ans. Le patron écoute le bruit de la chaîne, resserre deux vis sans regarder et vous rend la bicyclette comme neuve." },
+  { id: 'fr-neige', title: 'Le matin de la neige', text: "Le matin de la neige, la rue a perdu ses contours. Les voitures sont devenues de douces collines grises, et pendant une heure on n'a entendu que quelqu'un dégager un passage jusqu'au portail." },
+  { id: 'fr-lettres', title: 'Le tiroir aux lettres', text: "Dans chaque vieille maison, il y a un tiroir de lettres que personne n'ose jeter. Elles viennent d'une époque où écrire coûtait du temps, du papier et un timbre." },
+  { id: 'fr-echecs', title: 'Les échecs au parc', text: "Les tables près de la fontaine se remplissent après le déjeuner. Une partie dure quatre minutes, on frappe la pendule plus fort que nécessaire, et le perdant gagnait encore il y a un instant." },
+  { id: 'fr-verger', title: 'Le verger en octobre', text: "En octobre, le verger sent déjà le cidre avant que personne n'ait pressé une seule pomme. Les guêpes passent lentement sur les fruits tombés et l'échelle reste appuyée au même arbre." },
+  { id: 'fr-nuit', title: 'L\'équipe de nuit', text: "La nuit, le bâtiment vous appartient. L'ascenseur répond au premier appel, les couloirs restent silencieux, et le travail impossible de l'après-midi se termine avant que le ciel ne pâlisse." },
+  { id: 'fr-riviere', title: 'Nager dans la rivière', text: "La rivière est plus froide qu'elle n'en a l'air et plus rapide au milieu. On entre au virage peu profond, on nage fort vers l'autre rive, et le courant offre les derniers mètres." },
+] };

@@ -1,0 +1,21 @@
+{
+  "name": "TypeDash — Multiplayer Typing Race",
+  "short_name": "TypeDash",
+  "description": "Race typists from around the world in real time. Combos, nitro, golden words, daily challenges and worldwide rankings. Free, no sign-up.",
+  "start_url": "/app?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f7f4ef",
+  "theme_color": "#f7f4ef",
+  "categories": ["games", "education"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Practice", "url": "/app#practice", "description": "Type right now, no lobby" },
+    { "name": "Daily challenge", "url": "/app#daily", "description": "Today's passage, one shot" }
+  ]
+}

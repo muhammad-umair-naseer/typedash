@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TypeDash — Real-time Multiplayer Typing Race</title>
+  <meta name="description" content="Race typists from around the world in real time. Combos, nitro, golden words, unlockable cars — same passage, five lanes, jitter-free live progress.">
+  <meta name="theme-color" content="#f7f4ef">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="TypeDash">
+  <link rel="canonical" href="__ORIGIN__/app">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TypeDash">
+  <meta property="og:title" content="TypeDash — Real-time Multiplayer Typing Race">
+  <meta property="og:description" content="Race typists from around the world in real time. Combos, nitro, golden words, daily challenges and worldwide rankings. Free, no sign-up.">
+  <meta property="og:url" content="__ORIGIN__/app">
+  <meta property="og:image" content="__ORIGIN__/og/site.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TypeDash — Real-time Multiplayer Typing Race">
+  <meta name="twitter:description" content="Five cars, one passage, live. Chain combos, hit nitro, climb the world rankings. Free, no sign-up.">
+  <meta name="twitter:image" content="__ORIGIN__/og/site.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"TypeDash","url":"__ORIGIN__/"},{"@type":"VideoGame","name":"TypeDash","url":"__ORIGIN__/app","description":"A real-time multiplayer typing race with combos, nitro, golden words, daily challenges, ghost replays and worldwide rankings.","applicationCategory":"Game","operatingSystem":"Any","gamePlatform":"Web browser","playMode":["MultiPlayer","SinglePlayer"],"genre":"Typing","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}]}</script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ffffff'/%3E%3Cpath d='M36 6 14 36h14l-4 22 26-32H36l4-20z' fill='%23f59e0b'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><circle cx="17" cy="9" r="3"/><path d="M15.5 14.5A6 6 0 0 1 22 20"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 17v-4l2-5h14l2 5v4M3 17h18"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M9 13.5 8 21l4-2 4 2-1-7.5"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4M5 13v6h14v-6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 0 1 0 6"/></symbol>
+    <symbol id="i-volume-x" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l4 6M21 9l-4 6"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4h11l-1.5 4L16 12H5"/></symbol>
+    <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6M12 2v3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></symbol>
+  </svg>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <a class="brand" href="#/"><span class="bolt"><svg class="i fill" aria-hidden="true"><use href="#i-bolt"/></svg></span>TypeDash</a>
+    <div class="topbar-right">
+      <button class="pill level-pill" id="level-pill" title="Your level. Racing earns points, and points raise your level."><b id="top-level">1</b><span id="top-title">Rookie</span></button>
+      <span class="pill" id="online-pill" title="How many people are on TypeDash right now"><i class="dot"></i><span id="online">–</span><span class="pill-word">&nbsp;online</span></span>
+      <button class="pill install-pill" id="install-btn" hidden title="Add TypeDash to this device so it opens like an app"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Install</button>
+      <button class="icon-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="menu"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <button class="menu-item" id="sound-btn" type="button"><svg class="i" aria-hidden="true"><use href="#i-volume"/></svg> Sound on</button>
+      <button class="menu-item" id="btn-share-profile" type="button" hidden><svg class="i" aria-hidden="true"><use href="#i-share"/></svg> Share my profile</button>
+      <a class="menu-item" href="/practice"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> All the paragraphs</a>
+      <a class="menu-item" href="/daily"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg> Today's paragraph</a>
+      <a class="menu-item" href="/leaderboard"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg> The fastest people</a>
+      <div class="menu-foot"><span class="pill" id="ping-pill" data-q="ok" title="How long it takes to reach our server and back"><span id="ping">–</span><span class="pill-word">&nbsp;ms</span></span> delay to the server</div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================ HOME ============================ -->
+    <section id="screen-home" class="screen active">
+      <div class="home">
+        <!-- one card: what this is, then the ways to start -->
+        <div class="card hero-card">
+          <div class="hero">
+            <h1>A typing race against real people.</h1>
+            <p class="sub">A short paragraph appears. You type it, and your car moves as you type. Whoever finishes first wins.</p>
+          </div>
+
+          <div class="play">
+          <button class="play-btn primary" id="btn-quick" type="button">
+            <span class="play-icon"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg></span><b>Race other people</b><small>You and up to 4 others, typing the same paragraph right now</small>
+          </button>
+
+          <div class="play-second">
+            <button class="play-btn" id="btn-solo" type="button" title="Type on your own — nobody to wait for">
+              <span class="play-icon"><svg class="i" aria-hidden="true"><use href="#i-timer"/></svg></span><b>Type on your own</b><small>Starts now, no waiting</small>
+            </button>
+            <div class="daily-strip" id="daily-card"></div>
+          </div>
+
+          <div class="identity tile">
+            <span id="identity-text">Racing as <b>Guest</b></span>
+            <span class="identity-actions">
+              <button class="link-btn" id="btn-options" type="button" aria-expanded="false" aria-controls="options">Change</button>
+              <button class="link-btn" id="btn-friends" type="button" aria-expanded="false" aria-controls="friends-wrap">Play with friends</button>
+            </span>
+          </div>
+
+          <div class="reveal" id="options-wrap" data-open="false">
+            <div class="reveal-inner">
+              <div class="options" id="options">
+                <label class="field"><span>Your name</span><input id="name" maxlength="16" placeholder="e.g. speedster" autocomplete="nickname"></label>
+                <label class="field"><span>Racing for</span>
+                  <div class="select-wrap"><span id="flag-preview" class="flag-preview">🌍</span><select id="country"></select></div>
+                </label>
+                <div class="wizard" id="wizard">
+                  <div class="wiz-step" id="wiz-lang">
+                    <span class="wiz-step-label">1 · Language</span>
+                    <div class="wiz-options" id="wiz-lang-opts" role="group" aria-label="Choose text language"></div>
+                  </div>
+                  <div class="wiz-step" id="wiz-mode" hidden>
+                    <span class="wiz-step-label">2 · Mode</span>
+                    <div class="wiz-options" id="wiz-mode-opts" role="group" aria-label="Choose passage mode"></div>
+                  </div>
+                  <div class="wiz-step" id="wiz-pacer" hidden>
+                    <span class="wiz-step-label">3 · Pacer</span>
+                    <div class="wiz-options" id="wiz-pacer-opts" role="group" aria-label="Choose practice pacer"></div>
+                  </div>
+                </div>
+                <button class="btn primary big" id="wiz-start" type="button" hidden>Start practice →</button>
+                <div class="wiz-sr" aria-hidden="true">
+                  <select id="lang" tabindex="-1"><option value="en">English</option></select>
+                  <select id="mode" tabindex="-1"><option value="prose">Prose</option></select>
+                  <select id="pacer" tabindex="-1"></select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal" id="friends-wrap" data-open="false">
+            <div class="reveal-inner">
+              <div class="friends-row tile">
+                <button class="link-btn" id="btn-create" type="button">Make a private game</button>
+                <form class="join-inline" id="join-form">
+                  <input id="code" maxlength="6" placeholder="CODE" aria-label="Room code">
+                  <button class="btn small" id="btn-join" type="button">Join</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <nav class="home-links" id="home-links" aria-label="More pages">
+          <a class="home-link card" href="#/rankings" data-page="rankings">
+            <span class="hl-icon"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></span>
+            <b>Fastest people</b><small>Who types quickest, worldwide and in your country</small>
+          </a>
+          <a class="home-link card" href="#/profile" data-page="profile">
+            <span class="hl-icon"><svg class="i" aria-hidden="true"><use href="#i-user"/></svg></span>
+            <b>Your stats</b><small>Your points, your best speed and how often you win</small>
+          </a>
+          <a class="home-link card" href="#/garage" data-page="garage">
+            <span class="hl-icon"><svg class="i" aria-hidden="true"><use href="#i-car"/></svg></span>
+            <b>Your cars</b><small>Pick the car you drive — you get more as you play</small>
+          </a>
+          <a class="home-link card" href="#/team" data-page="team">
+            <span class="hl-icon"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span>
+            <b>Your team</b><small>Play with friends and add up what you all score</small>
+          </a>
+          <a class="home-link card" href="#/badges" data-page="badges">
+            <span class="hl-icon"><svg class="i" aria-hidden="true"><use href="#i-award"/></svg></span>
+            <b>Awards <small id="ach-count"></small></b><small>Little things you pick up for doing well</small>
+          </a>
+          <a class="home-link card" href="#/how" data-page="how">
+            <span class="hl-icon"><svg class="i" aria-hidden="true"><use href="#i-help"/></svg></span>
+            <b>How to play</b><small>Everything on screen, explained in one page</small>
+          </a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ============================ RANKINGS ============================ -->
+    <section id="screen-rankings" class="screen">
+      <div class="page">
+        <header class="page-head">
+          <a class="nav-back" href="#/"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg> Home</a>
+          <h2>Fastest people</h2>
+        </header>
+        <section class="card panel">
+          <p class="page-note tile">The best typists on TypeDash. Finish a race and you show up here too.</p>
+          <div id="boards" class="boards"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================ PROFILE ============================ -->
+    <section id="screen-profile" class="screen">
+      <div class="page">
+        <header class="page-head">
+          <a class="nav-back" href="#/"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg> Home</a>
+          <h2>Your stats</h2>
+        </header>
+        <section class="card panel">
+          <div class="profile-head">
+            <div class="level-ring" id="level-ring" style="--p:0">
+              <span class="lvl-label">LVL</span>
+              <b id="prof-level">1</b>
+            </div>
+            <div class="profile-meta">
+              <div class="prof-title" id="prof-title">Rookie</div>
+              <div class="xp-bar"><i id="xp-fill" style="width:0%"></i></div>
+              <div class="xp-text" id="xp-text">0 / 400 points to level 2</div>
+              <p class="page-note tile">You get points for every race you finish. More points, higher level.</p>
+            </div>
+          </div>
+          <div class="streak-box" id="streak-box">
+            <div class="streak-flame" id="streak-flame">🔥</div>
+            <div class="streak-meta">
+              <b id="streak-days">No streak yet</b>
+              <span id="streak-sub">Race today to start one. Every extra day in a row gives you 5% more points, up to 50%.</span>
+            </div>
+            <div class="streak-week" id="streak-week"></div>
+            <button class="btn small ghost remind-btn" id="btn-remind" hidden type="button">Remind me</button>
+          </div>
+          <div class="season-line" id="season-line"></div>
+          <div class="rank-chips" id="rank-chips"></div>
+          <div class="prof-stats card-grid">
+            <div><b id="st-points">0</b><span>points</span></div>
+            <div><b id="st-races">0</b><span>races</span></div>
+            <div><b id="st-wins">0</b><span>wins</span></div>
+            <div><b id="st-wpm">0</b><span>best words a minute</span></div>
+          </div>
+          <h3>People you race often</h3>
+          <div class="rivals card-grid" id="rivals"></div>
+          <p class="hint tile">Race someone in a private game and we keep the score between the two of you.</p>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================ GARAGE ============================ -->
+    <section id="screen-garage" class="screen">
+      <div class="page">
+        <header class="page-head">
+          <a class="nav-back" href="#/"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg> Home</a>
+          <h2>Your cars</h2>
+        </header>
+        <section class="card panel">
+          <p class="page-note tile">The car you drive in a race. It is only for looks — it does not make you faster.</p>
+          <div class="garage" id="garage"></div>
+          <p class="hint garage-hint tile" id="garage-hint">Tap a car to use it. You get new ones as you race more.</p>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================ TEAM ============================ -->
+    <section id="screen-team" class="screen">
+      <div class="page">
+        <header class="page-head">
+          <a class="nav-back" href="#/"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg> Home</a>
+          <h2>Your team</h2>
+        </header>
+        <section class="card panel">
+          <p class="page-note tile">Make a team with friends. Everything you all score counts together.</p>
+          <div id="team-card"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================ BADGES ============================ -->
+    <section id="screen-badges" class="screen">
+      <div class="page">
+        <header class="page-head">
+          <a class="nav-back" href="#/"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg> Home</a>
+          <h2>Awards</h2>
+        </header>
+        <section class="card panel">
+          <p class="page-note tile">Small things you get for doing something well. You do not have to chase them.</p>
+          <div class="ach-grid" id="ach-grid"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================ HOW TO PLAY ============================ -->
+    <section id="screen-how" class="screen">
+      <div class="page">
+        <header class="page-head">
+          <a class="nav-back" href="#/"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg> Home</a>
+          <h2>How to play</h2>
+        </header>
+        <section class="card panel">
+          <ul class="how">
+            <li><b>Type what you see.</b> A short paragraph appears and you copy it. Each letter you get right moves your car forward. Letters you get wrong turn red — fix them and carry on.</li>
+            <li><b>Getting words right in a row is worth more.</b> The counter shows how many words you have typed with no mistakes. The longer that run, the more points each word is worth.</li>
+            <li><b>The boost bar fills as you go.</b> Every word with no mistakes fills it a bit. When it is full your car speeds up for a few seconds and your points count double.</li>
+            <li><b>Three words in every paragraph are worth extra.</b> They are highlighted. Type them with no mistakes and you get a bonus.</li>
+            <li><b>Typing on your own still counts.</b> You race a robot that types at a set speed, or a replay of somebody else's run. It keeps your daily run going, but only races against real people give you points.</li>
+            <li><b>There is a new paragraph every day.</b> Everyone gets the same one, and you get one proper go at it. Coming back day after day earns you more points.</li>
+            <li><b>You can play with friends.</b> Make a team, and everything you all score counts together. Your country gets it too.</li>
+          </ul>
+          <details class="how-tech">
+            <summary>For the curious: how it works underneath</summary>
+            <ul class="how">
+              <li><b>10 Hz server snapshots</b> stamped with server time, interpolated on the client — cars glide, they never jitter.</li>
+              <li><b>Server-authoritative progress.</b> Validated and rate-limited; the race clock is synced NTP-style so everyone sees GO at the same instant.</li>
+              <li><b>Practice runs never touch the server while you type</b> — one result is sent at the end and checked against the typing-rate ceiling.</li>
+            </ul>
+          </details>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================ RACE ============================ -->
+    <section id="screen-race" class="screen">
+      <div class="race-head">
+        <div class="room-meta">
+          <button class="room-code" id="room-code" title="Copy invite link">-----</button>
+          <span class="badge public" id="room-type">Public</span>
+          <span class="seats" id="seats">0/5</span>
+          <span class="series" id="series" hidden></span>
+        </div>
+        <div class="status" id="status">Looking for racers…</div>
+        <div class="race-actions">
+          <button class="btn small ghost" id="btn-leave"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg> Leave</button>
+        </div>
+      </div>
+
+      <div class="host-bar" id="host-bar" hidden>
+        <label class="check"><input type="checkbox" id="bots-check" checked> Fill the empty spots with computer players</label>
+        <button class="btn primary" id="btn-start">Start race</button>
+      </div>
+
+      <div class="track-wrap" id="track-wrap">
+        <div id="track" class="track" aria-live="off"></div>
+      </div>
+
+      <div class="hud">
+        <div class="stat" title="How many words a minute you are typing right now"><span id="hud-wpm">0</span><label>words a minute</label></div>
+        <div class="stat" title="How much of what you typed was right"><span id="hud-acc">100%</span><label>typed right</label></div>
+        <div class="stat combo-stat" id="combo-stat" title="Words in a row with no mistakes — the longer the run, the more each word is worth"><span id="hud-combo">0</span><label>in a row <em id="hud-mult">x1</em></label></div>
+        <div class="stat score-stat" title="Your points for this race"><span id="hud-score">0</span><label>points</label></div>
+        <div class="stat nitro-stat" id="nitro-stat" title="Fills up as you type clean words. When it is full your car speeds up and points count double.">
+          <div class="nitro-meter"><i id="nitro-fill"></i></div>
+          <label id="nitro-label">boost</label>
+        </div>
+      </div>
+
+      <div class="passage-wrap" id="passage-wrap">
+        <input id="hidden-input" class="hidden-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="text" enterkeyhint="done" data-gramm="false" aria-label="Typing input">
+        <div id="passage" class="passage locked"></div>
+        <div class="focus-overlay" id="focus-overlay" hidden>Click here to keep typing</div>
+        <div class="finish-banner" id="finish-banner" hidden></div>
+        <div class="callouts" id="callouts" aria-live="polite"></div>
+      </div>
+
+      <div class="emote-bar" id="emote-bar" aria-label="Quick reactions"></div>
+
+      <div class="countdown" id="countdown" hidden>
+        <div class="cd-num pop" id="cd-num">5</div>
+        <div class="cd-sub" id="cd-sub">Get ready to type…</div>
+      </div>
+
+      <button class="chat-toggle" id="chat-toggle" title="Room chat" aria-label="Room chat"><svg class="i" aria-hidden="true"><use href="#i-message"/></svg></button>
+      <aside class="chat" id="chat" hidden>
+        <div class="chat-head">Chat <button class="icon-btn" id="chat-close" aria-label="Close chat"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+        <div class="chat-log" id="chat-log"></div>
+        <form class="chat-form" id="chat-form">
+          <input id="chat-input" maxlength="140" placeholder="Say something…" autocomplete="off">
+          <button class="btn small primary" type="submit">Send</button>
+        </form>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <nav><a href="/practice">All paragraphs</a> · <a href="/daily">Today's paragraph</a> · <a href="/leaderboard">Fastest people</a></nav>
+    <p>TypeDash is a free typing race you play in your browser. Nothing to install, no sign-up.</p>
+  </footer>
+
+  <!-- ============================ RESULTS ============================ -->
+  <div class="modal" id="results" hidden>
+    <div class="modal-card">
+      <h2 id="results-title">Race results</h2>
+      <div class="podium" id="podium"></div>
+
+      <div class="my-race" id="my-race" hidden>
+        <div class="my-race-grid">
+          <div class="mr-score"><span id="mr-score">0</span><label>points</label></div>
+          <div><b id="mr-combo">0</b><label>best run of correct words</label></div>
+          <div><b id="mr-nitro">0</b><label>boosts used</label></div>
+          <div><b id="mr-golden">0/3</b><label>bonus words</label></div>
+        </div>
+        <div class="xp-gain">
+          <div class="xp-gain-head"><span id="mr-xp">+0 points</span><span id="mr-level">Level 1</span></div>
+          <div class="xp-bar big"><i id="mr-xp-fill" style="width:0%"></i></div>
+          <div class="xp-text" id="mr-xp-text"></div>
+        </div>
+        <div class="mr-ranks" id="mr-ranks"></div>
+        <div class="mr-series" id="mr-series" hidden></div>
+        <div class="unlocks" id="mr-unlocks"></div>
+      </div>
+
+      <div class="solo-results" id="solo-results" hidden>
+        <div class="solo-hero">
+          <div class="solo-wpm"><span id="sr-wpm">0</span><label>words a minute</label></div>
+          <div class="solo-stats">
+            <div><b id="sr-acc">100%</b><label>typed right</label></div>
+            <div><b id="sr-time">0:00.0</b><label>time taken</label></div>
+            <div><b id="sr-best">—</b><label>your best so far</label></div>
+          </div>
+        </div>
+        <p class="solo-passage" id="sr-passage"></p>
+        <div class="solo-lines sr-lines" id="sr-lines"></div>
+      </div>
+
+      <table class="results-table" id="results-table">
+        <thead><tr><th>#</th><th>Who</th><th class="num">words a min</th><th class="num">right</th><th class="num">points</th><th class="num">time</th></tr></thead>
+        <tbody id="results-body"></tbody>
+      </table>
+      <form class="name-prompt" id="name-prompt" hidden>
+        <label for="np-name">Put in a name and you will show up on the lists</label>
+        <div class="np-row">
+          <input id="np-name" maxlength="16" placeholder="e.g. speedster" autocomplete="nickname">
+          <button class="btn primary" type="submit">Save</button>
+        </div>
+      </form>
+
+      <div class="results-foot">
+        <span id="next-race">Next race starts soon</span>
+        <div class="row">
+          <button class="btn" id="btn-share" hidden title="Share this result as a card"><svg class="i" aria-hidden="true"><use href="#i-share"/></svg> Share</button>
+          <button class="btn ghost" id="btn-results-leave">Leave room</button>
+          <button class="btn" id="btn-solo-again" hidden><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg> Go again</button>
+          <button class="btn primary" id="btn-solo-world" hidden><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Race real people</button>
+          <button class="btn primary" id="btn-results-stay">Stay for another race</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="levelup" id="levelup" hidden>
+    <div class="levelup-card">
+      <div class="levelup-eyebrow">LEVEL UP</div>
+      <div class="levelup-num" id="levelup-num">2</div>
+      <div class="levelup-title" id="levelup-title">Cadet</div>
+      <div class="levelup-skins" id="levelup-skins"></div>
+    </div>
+  </div>
+
+  <div class="modal share-modal" id="share-dialog" hidden>
+    <div class="modal-card share-card">
+      <div class="chat-head">Share <button class="icon-btn" id="share-close" aria-label="Close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+      <img id="share-img" class="share-img" alt="Your result card" width="1200" height="630">
+      <p class="share-text" id="share-text"></p>
+      <div class="row share-actions">
+        <button class="btn primary" id="share-native" hidden><svg class="i" aria-hidden="true"><use href="#i-share"/></svg> Share…</button>
+        <button class="btn" id="share-copy-link"><svg class="i" aria-hidden="true"><use href="#i-link"/></svg> Copy link</button>
+        <button class="btn" id="share-copy-image"><svg class="i" aria-hidden="true"><use href="#i-image"/></svg> Copy image</button>
+      </div>
+      <p class="hint">Paste it in Discord, WhatsApp, X or anywhere links unfurl — the card carries your numbers.</p>
+    </div>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div class="conn-banner" id="conn-banner" hidden>Reconnecting to the race server…</div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
