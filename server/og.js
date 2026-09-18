@@ -100,24 +100,24 @@ function resultCard(s, origin) {
   const host = hostOf(origin);
   if (s.kind === 'daily') {
     return frame({
-      tag: `DAILY #${s.dailyNumber || ''}`.trim(),
+      tag: `TODAY #${s.dailyNumber || ''}`.trim(),
       inner: hero({
-        big: s.wpm, bigLabel: 'WPM', name: s.name, country: s.country, skin: s.skin, color: s.color,
-        line2: s.rank ? `#${s.rank} of ${num(s.of)} today · ${s.accuracy}% accuracy` : `${s.accuracy}% accuracy · ${fmtTime(s.time)}`,
-        line3: `“${s.passageTitle || 'Daily challenge'}” · ${fmtTime(s.time)}`,
+        big: s.wpm, bigLabel: 'WORDS A MINUTE', name: s.name, country: s.country, skin: s.skin, color: s.color,
+        line2: s.rank ? `#${s.rank} of ${num(s.of)} today · ${s.accuracy}% typed right` : `${s.accuracy}% typed right · ${fmtTime(s.time)}`,
+        line3: `“${s.passageTitle || "Today's paragraph"}” · ${fmtTime(s.time)}`,
       }),
-      footer: `Same passage for everyone, one shot a day · play it at ${host}`,
+      footer: `The same paragraph for everybody, one go a day · type it at ${host}`,
     });
   }
   if (s.kind === 'practice') {
-    const pacer = s.pacer && s.pacer.kind === 'ghost' ? `${s.pacer.won ? 'beat' : 'lost to'} ${s.pacer.name}'s ghost (${s.pacer.wpm} WPM)`
-      : s.pacer && s.pacer.wpm ? `${s.pacer.won ? 'beat' : 'lost to'} the ${s.pacer.wpm} WPM pacer` : 'practice run';
+    const pacer = s.pacer && s.pacer.kind === 'ghost' ? `${s.pacer.won ? 'beat' : 'lost to'} ${s.pacer.name}'s run (${s.pacer.wpm} a min)`
+      : s.pacer && s.pacer.wpm ? `${s.pacer.won ? 'beat' : 'lost to'} the robot at ${s.pacer.wpm} a min` : 'typed on their own';
     return frame({
-      tag: 'PRACTICE',
+      tag: 'ON YOUR OWN',
       inner: hero({
-        big: s.wpm, bigLabel: 'WPM', name: s.name, country: s.country, skin: s.skin, color: s.color,
-        line2: `${s.accuracy}% accuracy · ${fmtTime(s.time)}`,
-        line3: `“${s.passageTitle || 'Practice'}” · ${pacer}`,
+        big: s.wpm, bigLabel: 'WORDS A MINUTE', name: s.name, country: s.country, skin: s.skin, color: s.color,
+        line2: `${s.accuracy}% typed right · ${fmtTime(s.time)}`,
+        line3: `“${s.passageTitle || 'A paragraph'}” · ${pacer}`,
       }),
       footer: `Beat my ghost on this passage at ${host} · free, no sign-up`,
     });
@@ -126,8 +126,8 @@ function resultCard(s, origin) {
   return frame({
     tag: s.ranked ? 'RANKED RACE' : 'FRIENDLY RACE',
     inner: hero({
-      big: s.wpm, bigLabel: 'WPM', name: s.name, country: s.country, skin: s.skin, color: s.color,
-      line2: `${place(s.rank)} of ${s.of} · ${s.accuracy}% accuracy · ${s.time ? fmtTime(s.time) : 'DNF'}`,
+      big: s.wpm, bigLabel: 'WORDS A MINUTE', name: s.name, country: s.country, skin: s.skin, color: s.color,
+      line2: `${place(s.rank)} of ${s.of} · ${s.accuracy}% typed right · ${s.time ? fmtTime(s.time) : 'DNF'}`,
       line3: `${ranked}${s.streak > 1 ? ` · ${s.streak}-day streak` : ''}`,
     }),
     footer: `Race me at ${host} · real-time multiplayer typing race`,
@@ -140,7 +140,7 @@ function profileCard(p, origin) {
     tag: 'PLAYER PROFILE',
     inner: hero({
       big: p.level, bigLabel: 'LEVEL', name: p.name, country: p.country, skin: p.skin, color: '#d97706', bigColor: '#b8860b',
-      line2: `${p.title} · ${num(p.points)} points · best ${p.bestWpm} WPM`,
+      line2: `${p.title} · ${num(p.points)} points · best ${p.bestWpm} a min`,
       line3: `${rank} · ${p.wins} wins · ${p.streak > 0 ? `${p.streak}-day streak` : `${p.races} races`}`,
     }),
     footer: `Race me at ${hostOf(origin)} · real-time multiplayer typing race`,
@@ -153,14 +153,14 @@ function siteCard(origin) {
     inner: `
   <text x="60" y="270" font-family="Space Grotesk" font-weight="700" font-size="84" fill="#2a2521">Type against</text>
   <text x="60" y="365" font-family="Space Grotesk" font-weight="700" font-size="84" fill="url(#grad)">the world.</text>
-  <text x="60" y="438" font-family="Inter" font-weight="500" font-size="30" fill="#7a7267">Five cars, one passage, live.</text>
+  <text x="60" y="438" font-family="Inter" font-weight="500" font-size="30" fill="#7a7267">A short paragraph, typed live.</text>
   ${car('rocket', '#0d9fc4', 760, 300, 3.2)}`,
     footer: `${hostOf(origin)} · real-time multiplayer typing race with worldwide rankings`,
   });
 }
 
 function dailyCard(d, origin) {
-  const leader = d.top && d.top[0] ? `leader ${d.top[0].wpm} WPM (${cut(d.top[0].name, 14)})` : 'nobody has set a time yet';
+  const leader = d.top && d.top[0] ? `best so far ${d.top[0].wpm} a min (${cut(d.top[0].name, 14)})` : 'nobody has had a go yet';
   return frame({
     tag: `DAILY #${d.number}`,
     inner: hero({

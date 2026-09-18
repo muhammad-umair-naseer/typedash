@@ -968,7 +968,7 @@ function refreshStateUI(m) {
   renderSeries(m);
   el.hostBar.hidden = !(m.isPrivate && m.state === 'waiting' && m.hostId === myId());
   if (m.solo) {
-    const what = m.passageTitle ? `“${m.passageTitle}”` : 'Practice run';
+    const what = m.passageTitle ? `“${m.passageTitle}”` : 'Your go';
     if (m.state === 'racing') el.status.textContent = m.pacerWpm ? `${what} — try to beat the robot at ${m.pacerWpm} words a minute` : `${what} — go!`;
     if (m.state === 'countdown') el.status.textContent = `${what} — get ready`;
     if (m.state === 'finished') el.status.textContent = `${what} — finished`;
@@ -1024,7 +1024,7 @@ function onFinished(m) {
     scheduleSend(true); // final score (with finish bonus) to the server
     el.finishBanner.innerHTML = `<span class="big">${medal(m.rank)}</span>
       <div><b>You finished ${m.rank === 1 ? 'first!' : `#${m.rank}`}</b>
-      <span>${m.wpm} WPM · ${m.accuracy}% accuracy · ${fmtTime(m.time)}</span>
+      <span>${m.wpm} words a minute · ${m.accuracy}% typed right · ${fmtTime(m.time)}</span>
       <span class="bonus">+${bonus.place} place bonus${bonus.clean ? ` · +${bonus.clean} clean bonus` : ''}</span></div>`;
     el.finishBanner.hidden = false;
     if (m.rank === 1) { confetti.burst(160); sound.win(); } else sound.finish();
@@ -1330,7 +1330,7 @@ function onRaceResult(msg) {
   if (msg.solo) solo.onResult(msg);
   if (msg.daily) dailyCard.load();
   if (msg.ranked) loadSeason();
-  if (msg.ghost && msg.ghost.wr && !msg.solo) setTimeout(() => toast('🌍 New world record on this passage — your ghost now guards it', 'success', 3600), 700);
+  if (msg.ghost && msg.ghost.wr && !msg.solo) setTimeout(() => toast('🌍 Nobody on TypeDash has typed this paragraph faster', 'success', 3600), 700);
   el.mrLevel.textContent = `Level ${lvl} · ${account.title}`;
 
   const lo = pointsForLevel(lvl);

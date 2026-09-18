@@ -36,7 +36,7 @@ async function load() {
     const res = await fetch('/api/passages');
     catalogue = (await res.json()).passages;
   } catch (_) {
-    el.status.textContent = 'Could not load a passage. Refresh to try again.';
+    el.status.textContent = 'Could not load a paragraph. Refresh to try again.';
     return;
   }
   setup();

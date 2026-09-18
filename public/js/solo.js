@@ -139,7 +139,7 @@ export class Solo {
     const spec = PACERS.find((p) => p.id === pacer && p.wpm !== undefined) || PACERS[0];
     if (spec.wpm != null) return spec.wpm;
     const best = this.identity().bestWpm || 0;
-    if (!best) toast('No personal best yet — pacing at 55 WPM until you set one', 'info', 2600);
+    if (!best) toast('You have no time on this one yet — the robot will go at 55 words a minute', 'info', 2600);
     return best || 55;
   }
 
@@ -158,7 +158,7 @@ export class Solo {
     }
     this.lastOpts = { passageId, passage, bonusWords, pacer, pacerName, mode, dailyNumber, lang, category };
     let p = passage || (passageId ? this.passageById(passageId) : null);
-    if (passageId && !p) toast('That passage is not available — here is another one', 'warn', 2600);
+    if (passageId && !p) toast('That paragraph is not available — here is another one', 'warn', 2600);
     if (!p) {
       let pool = this.catalogue.filter((x) => x.lang === lang && x.category === category);
       if (!pool.length) pool = this.catalogue.filter((x) => x.lang === 'en' && x.category === 'prose');
@@ -177,11 +177,11 @@ export class Solo {
     } else if (pacer && typeof pacer === 'object' && pacer.ghostOf) {   // "beat my ghost" links
       ghost = await this.fetchGhost(p.id, 'pb', pacer.ghostOf);
       if (ghost) pacerKind = 'rival';
-      else toast('That ghost is gone — pacing at 55 WPM instead', 'info', 3000);
+      else toast('That replay is gone — the robot will go at 55 words a minute instead', 'info', 3000);
     } else if (pacer === 'wr' || pacer === 'pb') {
       ghost = await this.fetchGhost(p.id, pacer);
       if (ghost) pacerKind = pacer;
-      else toast(pacer === 'wr' ? 'No world record on this passage yet — pacing at 55 WPM. Set the record!' : 'No personal best on this passage yet — pacing at 55 WPM.', 'info', 3000);
+      else toast(pacer === 'wr' ? 'Nobody has typed this paragraph yet — the robot will go at 55 words a minute' : 'You have not typed this paragraph yet — the robot will go at 55 words a minute', 'info', 3000);
     }
     if (ghost && !(ghost.timeline && ghost.timeline.length >= 2 && ghost.wpm > 0)) ghost = null;
     const pacerWpm = ghost ? ghost.wpm : this.resolvePacer(pacer === 'wr' || pacer === 'pb' || (pacer && typeof pacer === 'object') ? 'medium' : pacer);

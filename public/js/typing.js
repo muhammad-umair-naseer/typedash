@@ -66,7 +66,7 @@ export class TypingArea {
     if (!this.text) {
       const ph = document.createElement('span');
       ph.className = 'placeholder';
-      ph.textContent = 'The passage appears here when the countdown starts. Mash any key to rev your engine while you wait.';
+      ph.textContent = 'The paragraph appears here when the countdown ends. Tap any key while you wait.';
       this.el.appendChild(ph);
       return;
     }
@@ -81,7 +81,7 @@ export class TypingArea {
       const idx = this.words.length;
       if (bonus.has(idx)) {
         word.classList.add('gold');
-        word.title = 'Golden word: type it flawlessly for a bonus';
+        word.title = 'Bonus word: type it with no mistakes for extra points';
       }
       this.words.push(word);
       this.wordCommitAt.push(commitAt);

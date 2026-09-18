@@ -66,7 +66,7 @@ export class Boards {
 
   render() {
     if (!this.meta) {
-      this.root.innerHTML = '<div class="board-empty">Connecting to the ranking server…</div>';
+      this.root.innerHTML = '<div class="board-empty">Connecting…</div>';
       return;
     }
     const cat = this.category() || this.meta.categories[0];
@@ -91,7 +91,7 @@ export class Boards {
       if (d.me && !d.inTop) rows += `<div class="board-me-out"><ol class="board-list">${this.row(d.me, fmt)}</ol></div>`;
       if (!d.me) rows += '<div class="board-empty small">You\'re not on this board yet — one race puts you on it.</div>';
     }
-    const count = d ? `<span class="board-count">${d.total.toLocaleString()} racer${d.total === 1 ? '' : 's'}</span>` : '';
+    const count = d ? `<span class="board-count">${d.total.toLocaleString()} ${d.total === 1 ? 'person' : 'people'}</span>` : '';
 
     this.root.innerHTML = `<div class="tabs">${tabs}</div><div class="board-filters">${wins}${scopes}${count}</div>${rows}`;
   }

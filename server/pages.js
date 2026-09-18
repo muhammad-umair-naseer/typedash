@@ -55,16 +55,16 @@ function layout({ origin, path, title, description, image, imageAlt, body, jsonL
   <header class="topbar">
     <a class="brand" href="/"><span class="bolt"><svg class="i fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>TypeDash</a>
     <nav class="topbar-right page-nav">
-      <a class="pill" href="/practice">Practice</a>
-      <a class="pill" href="/daily">Daily</a>
-      <a class="pill" href="/leaderboard">Rankings</a>
+      <a class="pill" href="/practice">Paragraphs</a>
+      <a class="pill" href="/daily">Today</a>
+      <a class="pill" href="/leaderboard">Fastest people</a>
       <a class="btn primary small" href="/app">Play now</a>
     </nav>
   </header>
   <main class="page">${body}</main>
   <footer class="page-foot">
     <a href="/">TypeDash</a> · real-time multiplayer typing race · free, no sign-up ·
-    <a href="/practice">practice passages</a> · <a href="/daily">daily challenge</a> · <a href="/leaderboard">world rankings</a>
+    <a href="/practice">all the paragraphs</a> · <a href="/daily">today's paragraph</a> · <a href="/leaderboard">fastest people</a>
   </footer>
 </body>
 </html>`;
@@ -76,14 +76,14 @@ function shareMeta(s) {
   const who = s.name || 'A racer';
   if (s.kind === 'daily') {
     return {
-      title: `${who} scored ${s.wpm} WPM on TypeDash Daily #${s.dailyNumber}`,
+      title: `${who} typed today's paragraph #${s.dailyNumber} at ${s.wpm} words a minute on TypeDash`,
       description: `${s.rank ? `#${s.rank} of ${num(s.of)} today · ` : ''}${s.accuracy}% accuracy · ${fmtTime(s.time)}. Same passage for everyone, one scored attempt a day. Your turn.`,
       cta: { href: '/app#daily', label: "Play today's daily" },
     };
   }
   if (s.kind === 'practice') {
     return {
-      title: `${who} typed ${s.wpm} WPM on “${s.passageTitle || 'a TypeDash passage'}”`,
+      title: `${who} typed ${s.wpm} WPM on “${s.passageTitle || 'a TypeDash paragraph'}”`,
       description: `${s.accuracy}% accuracy in ${fmtTime(s.time)}. Race their ghost on the same passage — free, no sign-up.`,
       cta: { href: s.passageId && s.accountId ? `/app#practice/${s.passageId}/ghost/${s.accountId}` : '/app#practice', label: 'Beat my ghost' },
     };
@@ -147,7 +147,7 @@ const medal = (r) => (r === 1 ? '🥇' : r === 2 ? '🥈' : r === 3 ? '🥉' : `
 
 function boardTable(rows, fmt, { showCountry = true } = {}) {
   if (!rows.length) return '<p class="hint">Nobody on this board yet — one race puts you on it.</p>';
-  return `<table class="results-table board-table"><thead><tr><th>#</th><th>Racer</th><th class="num">Score</th></tr></thead><tbody>${rows.map((r) => `
+  return `<table class="results-table board-table"><thead><tr><th>#</th><th>Who</th><th class="num">Score</th></tr></thead><tbody>${rows.map((r) => `
     <tr><td>${medal(r.rank)}</td><td>${showCountry ? `${flag(r.country)} ` : ''}<a href="/u/${esc(r.id)}">${esc(r.name)}</a></td><td class="num">${esc(fmt(r.value))}</td></tr>`).join('')}</tbody></table>`;
 }
 
@@ -158,7 +158,7 @@ function boardTable(rows, fmt, { showCountry = true } = {}) {
 function leaderboardPage({ origin, scope, top, countries, dailyRows, season, teams, countryRows }) {
   const global = scope === 'global';
   const cname = global ? null : nameOf(scope);
-  const title = global ? 'World typing rankings · TypeDash' : `Fastest typists in ${cname} · TypeDash rankings`;
+  const title = global ? 'Fastest people on TypeDash · typing speed rankings' : `Fastest typists in ${cname} · TypeDash`;
   const description = global
     ? `The top ranked racers on TypeDash by points, typing speed (WPM) and daily streak, worldwide. Updated live after every race.`
     : `The top ranked TypeDash racers from ${cname} by points, typing speed (WPM) and daily streak. Updated live after every race.`;
@@ -166,7 +166,7 @@ function leaderboardPage({ origin, scope, top, countries, dailyRows, season, tea
   const links = countries.filter((c) => c !== scope).map((c) => `<a class="chip-btn" href="/leaderboard/${esc(c)}">${flag(c)} ${esc(nameOf(c) || c)}</a>`).join(' ');
   const body = `
     <section class="card page-card">
-      <h1>${global ? 'World rankings' : `${flag(scope)} ${esc(cname)} rankings`} <small>${global ? 'every country' : `<a href="/leaderboard">see the world board</a>`}</small></h1>
+      <h1>${global ? 'Fastest people' : `Fastest in ${flag(scope)} ${esc(cname)}`} <small>${global ? 'everywhere' : `<a href="/leaderboard">see everyone</a>`}</small></h1>
       <p class="sub">${esc(description)}</p>
       <h2>Season ${season ? season.number : ''} <small>this month · ends ${season ? new Date(season.endsAt).toISOString().slice(0, 10) : ''}</small></h2>${boardTable(top.season || [], (v) => num(v), { showCountry: global })}
       <h2>Points <small>all time</small></h2>${boardTable(top.points, (v) => num(v), { showCountry: global })}
@@ -174,16 +174,16 @@ function leaderboardPage({ origin, scope, top, countries, dailyRows, season, tea
       <h2>Streak <small>days in a row</small></h2>${boardTable(top.streak, (v) => `${v} 🔥`, { showCountry: global })}
       ${global && dailyRows ? `<h2>Today's paragraph</h2>${boardTable(dailyRows, (v) => `${v} a min`)}` : ''}
       ${global && teams ? `<h2>Teams <small>this season</small></h2>${teams.length ? `<table class="results-table board-table"><thead><tr><th>#</th><th>Team</th><th class="num">Members</th><th class="num">Points</th></tr></thead><tbody>${teams.map((t) => `<tr><td>${medal(t.rank)}</td><td><a href="/t/${esc(t.id)}">${esc(t.name)}</a></td><td class="num">${t.members}</td><td class="num">${num(t.value)}</td></tr>`).join('')}</tbody></table>` : '<p class="hint">No teams on the board yet — create one from your profile card.</p>'}` : ''}
-      ${global && countryRows ? `<h2>Countries <small>this week</small></h2>${countryRows.length ? `<table class="results-table board-table"><thead><tr><th>#</th><th>Country</th><th class="num">Racers</th><th class="num">Points</th></tr></thead><tbody>${countryRows.map((c) => `<tr><td>${medal(c.rank)}</td><td>${flag(c.country)} <a href="/leaderboard/${esc(c.country)}">${esc(c.name)}</a></td><td class="num">${c.players}</td><td class="num">${num(c.value)}</td></tr>`).join('')}</tbody></table>` : '<p class="hint">No points this week yet.</p>'}` : ''}
+      ${global && countryRows ? `<h2>Countries <small>this week</small></h2>${countryRows.length ? `<table class="results-table board-table"><thead><tr><th>#</th><th>Country</th><th class="num">People</th><th class="num">Points</th></tr></thead><tbody>${countryRows.map((c) => `<tr><td>${medal(c.rank)}</td><td>${flag(c.country)} <a href="/leaderboard/${esc(c.country)}">${esc(c.name)}</a></td><td class="num">${c.players}</td><td class="num">${num(c.value)}</td></tr>`).join('')}</tbody></table>` : '<p class="hint">No points this week yet.</p>'}` : ''}
       <div class="page-cta"><a class="btn primary big" href="/app">Have a go</a></div>
       ${global && season && season.past.length ? `<h2>Past seasons</h2><div class="past-seasons">${season.past.map((s) => `
-        <div class="past-season"><b>Season ${s.number}</b> <span class="passage-meta">${esc(s.key)} · ${num(s.players)} racers</span><div>${s.top.map((t) => `${medal(t.rank)} ${flag(t.country)} <a href="/u/${esc(t.id)}">${esc(t.name)}</a> <small>${num(t.points)}</small>`).join(' · ')}</div></div>`).join('')}</div>` : ''}
+        <div class="past-season"><b>Season ${s.number}</b> <span class="passage-meta">${esc(s.key)} · ${num(s.players)} people</span><div>${s.top.map((t) => `${medal(t.rank)} ${flag(t.country)} <a href="/u/${esc(t.id)}">${esc(t.name)}</a> <small>${num(t.points)}</small>`).join(' · ')}</div></div>`).join('')}</div>` : ''}
       ${links ? `<h2>The fastest in each country</h2><div class="chips wrap">${links}</div>` : ''}
     </section>`;
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: global ? 'TypeDash world rankings' : `TypeDash rankings — ${cname}`,
+    name: global ? 'Fastest people on TypeDash' : `Fastest people in ${cname}`,
     itemListOrder: 'https://schema.org/ItemListOrderDescending',
     numberOfItems: top.points.length,
     itemListElement: top.points.slice(0, 25).map((r) => ({ '@type': 'ListItem', position: r.rank, name: r.name, url: `${origin}/u/${r.id}` })),
@@ -306,7 +306,7 @@ function practicePage({ origin, passage, record, prev, next, langs = {}, categor
   const catName = categories[p.category] ? categories[p.category].name : p.category;
   const stage = STAGES[(p.stage || 1) - 1] || STAGES[0];
   const title = `Typing practice: “${p.title}” (${p.words} words, ${p.lang === 'en' && p.category === 'prose' ? 'English' : `${langName}${p.category !== 'prose' ? ` · ${catName}` : ''}`}) · TypeDash`;
-  const description = `${p.text.slice(0, 150).replace(/\s+\S*$/, '')}… Practise this ${p.words}-word passage in your browser${record ? `, then race the ${record.wpm} WPM record ghost` : ''}. Free, no sign-up.`;
+  const description = `${p.text.slice(0, 150).replace(/\s+\S*$/, '')}… Type this ${p.words}-word paragraph in your browser${record ? `, then race a replay of the fastest run so far (${record.wpm} words a minute)` : ''}. Free, no sign-up.`;
   const body = `
     <section class="card page-card practice-page">
       <h1>${esc(p.title)} <small>${esc(langName)}${p.category !== 'prose' ? ` · ${esc(catName)}` : ''} · ${p.words} words · ${p.text.length} characters</small></h1>
@@ -314,9 +314,9 @@ function practicePage({ origin, passage, record, prev, next, langs = {}, categor
       <blockquote class="passage-text">${esc(p.text)}</blockquote>
       ${record
         ? `<div class="record-box">Fastest anyone has typed this: <b>${record.wpm} words a minute</b> at ${record.accuracy}% correct, by ${flag(record.country)} ${esc(record.name)} (${fmtTime(record.time)})</div>`
-        : '<div class="record-box dim">No world record on this passage yet — the first clean run takes it.</div>'}
+        : '<div class="record-box dim">Nobody has typed this paragraph yet — the first clean run sets the time to beat.</div>'}
       <div class="page-cta">
-        <a class="btn primary big" href="/app#practice/${esc(p.id)}">Practise this passage</a>
+        <a class="btn primary big" href="/app#practice/${esc(p.id)}">Type this paragraph</a>
         ${record ? `<a class="btn big" href="/app#practice/${esc(p.id)}/ghost/wr">Race the record ghost</a>` : ''}
       </div>
       <p class="hint">Practice runs happen entirely in your browser: no lobby, no waiting. Golden words pay a bonus, clean words charge nitro, and a verified run can set the record.</p>
@@ -329,18 +329,18 @@ function practicePage({ origin, passage, record, prev, next, langs = {}, categor
 /** /daily — today's challenge, who is leading, and yesterday's podium. */
 function dailyPage({ origin, today, yesterday }) {
   const d = today;
-  const title = `TypeDash Daily #${d.number} — “${d.passage.title}”`;
+  const title = `Today's paragraph #${d.number} — “${d.passage.title}” · TypeDash`;
   const leader = d.top[0] ? `Best so far: ${d.top[0].wpm} words a minute by ${d.top[0].name}.` : 'Nobody has had a go yet.';
-  const description = `Today's typing challenge: ${d.passage.words} words, the same passage for everyone, one scored attempt. ${num(d.players)} played so far. ${leader}`;
+  const description = `Today's paragraph: ${d.passage.words} words, the same one for everybody, one proper go at it. ${num(d.players)} have tried it so far. ${leader}`;
   const rows = (list) => list.map((t) => ({ id: t.id, rank: t.rank, name: t.name, country: t.country, value: t.wpm }));
   const body = `
     <section class="card page-card daily-page">
-      <h1>Daily #${d.number} <small>“${esc(d.passage.title)}” · ${d.passage.words} words · resets at midnight UTC</small></h1>
+      <h1>Today's paragraph <small>#${d.number} · “${esc(d.passage.title)}” · ${d.passage.words} words · a new one at midnight UTC</small></h1>
       <p class="sub">${esc(description)}</p>
-      <div class="page-cta"><a class="btn primary big" href="/app#daily">Play today's daily</a></div>
+      <div class="page-cta"><a class="btn primary big" href="/app#daily">Have a go</a></div>
       <h2>Today's top 10 <small>${num(d.players)} have tried it</small></h2>${boardTable(rows(d.top), (v) => `${v} a min`)}
       ${yesterday && yesterday.top.length ? `<h2>Yesterday · #${yesterday.number} <small>“${esc(yesterday.title)}”</small></h2>${boardTable(rows(yesterday.top), (v) => `${v} a min`)}` : ''}
-      <p class="hint">The daily is played in practice mode, right in your browser. Your first verified finished run is the one that counts; later runs are practice. A daily streak grows for every consecutive day you complete it.</p>
+      <p class="hint">You type today's paragraph on your own, right in your browser. The first go you finish is the one that counts; after that you can type it again for fun. Coming back day after day builds your days in a row.</p>
     </section>`;
   const jsonLd = { '@context': 'https://schema.org', '@type': 'WebPage', name: title, description, url: `${origin}/daily`, dateModified: new Date().toISOString() };
   return layout({ origin, path: '/daily', title, description, image: `${origin}/og/daily.png`, body, jsonLd });
@@ -371,9 +371,9 @@ function teamPage(t, origin) {
       </div>
       ${t.trophies.length ? `<p class="hint">${t.trophies.map((x) => `${medal(x.rank)} Season ${x.number}`).join(' · ')}</p>` : ''}
       <h2>Members</h2>
-      <table class="results-table board-table"><thead><tr><th>Racer</th><th class="num">Season</th><th class="num">All time</th><th class="num">Best a min</th></tr></thead><tbody>${t.members.map((m) => `
+      <table class="results-table board-table"><thead><tr><th>Who</th><th class="num">Season</th><th class="num">All time</th><th class="num">Best a min</th></tr></thead><tbody>${t.members.map((m) => `
         <tr><td>${flag(m.country)} <a href="/u/${esc(m.id)}">${esc(m.name)}</a>${m.owner ? ' <span class="tag">OWNER</span>' : ''}</td><td class="num">${num(m.season)}</td><td class="num">${num(m.points)}</td><td class="num">${m.bestWpm}</td></tr>`).join('')}</tbody></table>
-      <div class="page-cta"><a class="btn primary big" href="/app">Race them</a><a class="btn big" href="/leaderboard">Team rankings</a></div>
+      <div class="page-cta"><a class="btn primary big" href="/app">Race them</a><a class="btn big" href="/leaderboard">Fastest people</a></div>
       <p class="hint">Teams are free: create one from your profile card, share the invite link, and every ranked race your members finish scores for the team.</p>
     </section>`;
   const jsonLd = { '@context': 'https://schema.org', '@type': 'SportsTeam', name: t.name, alternateName: t.tag, url: `${origin}/t/${t.id}`, memberOf: { '@type': 'Organization', name: 'TypeDash' } };
@@ -440,7 +440,7 @@ function embedPage({ origin, passage }) {
       <a class="brand" href="${esc(origin)}/?ref=embed" target="_blank" rel="noopener"><span>⚡</span>TypeDash</a>
       <div class="stats"><div class="stat"><b id="e-wpm">0</b>a min</div><div class="stat"><b id="e-acc">100%</b>right</div><div class="stat"><b id="e-time">0:00.0</b></div></div>
     </div>
-    <p class="status" id="e-status">Loading a passage…</p>
+    <p class="status" id="e-status">Loading a paragraph…</p>
     <div class="bars">
       <div class="bar-label">You</div><div class="bar me"><i id="bar-me"></i></div>
       <div class="bar-label" id="pacer-label">Pacer</div><div class="bar pacer"><i id="bar-pacer"></i></div>
@@ -453,11 +453,11 @@ function embedPage({ origin, passage }) {
       <div class="result-grid"><div><b id="r-wpm">0</b> <span>words a min</span></div><div><b id="r-acc">100%</b> <span>typed right</span></div><div><b id="r-time">0:00.0</b> <span>time</span></div></div>
       <p id="r-line"></p>
       <div class="row">
-        <a class="btn primary" id="btn-play" href="${esc(origin)}/app?ref=embed" target="_blank" rel="noopener">Race the world on TypeDash</a>
+        <a class="btn primary" id="btn-play" href="${esc(origin)}/app?ref=embed" target="_blank" rel="noopener">Race other people on TypeDash</a>
         <button class="btn" id="btn-again" type="button">↻ Try again</button>
       </div>
     </div>
-    <p class="foot">Live multiplayer, daily challenge and rankings at <a href="${esc(origin)}/app?ref=embed" target="_blank" rel="noopener">${esc(origin.replace(/^https?:\/\//, ''))}</a></p>
+    <p class="foot">Race other people, today's paragraph and the fastest people at <a href="${esc(origin)}/app?ref=embed" target="_blank" rel="noopener">${esc(origin.replace(/^https?:\/\//, ''))}</a></p>
   </div>
   <script type="module" src="/js/embed.js"></script>
 </body>

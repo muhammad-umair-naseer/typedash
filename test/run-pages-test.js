@@ -148,7 +148,7 @@ function runFor(passage, time, extra = {}) {
   const today = challengeFor(dayKey());
   const dp = await get(`${base}/daily`);
   assert.strictEqual(dp.status, 200);
-  assert.ok(dp.body.includes(`Daily #${today.number}`) && dp.body.includes(today.passage.title.replace(/'/g, '&#39;')), 'today on the page');
+  assert.ok(dp.body.includes(`#${today.number}`) && dp.body.includes("Today's paragraph") && dp.body.includes(today.passage.title.replace(/'/g, '&#39;')), 'today on the page');
   assert.ok(dp.body.includes('href="/app#daily"') && dp.body.includes(`og:image" content="${base}/og/daily.png"`), 'CTA + daily card');
   b.result = null;
   b.send({ type: 'solo_start', passageId: today.passage.id, mode: 'daily' });
